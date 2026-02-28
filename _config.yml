@@ -1,0 +1,30 @@
+title: AKM — Agent Kit Manager
+description: Manage reusable LLM agent skills, session artifacts, and global instructions across coding assistants.
+url: "https://akm.raphaelsimon.fr"
+baseurl: ""
+
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    default_lang: bash
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - AGENTS.md
+  - CLAUDE.md
+  - LICENSE
+  - node_modules
+  - vendor
+
+defaults:
+  - scope:
+      path: "docs"
+    values:
+      layout: docs

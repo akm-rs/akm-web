@@ -1,0 +1,16 @@
+<nav class="sidebar-nav" aria-label="Documentation navigation">
+  {% for item in site.data.navigation %}
+    {% if item.children %}
+      <div class="sidebar-group">
+        <span class="sidebar-group-title">{{ item.title }}</span>
+        <ul>
+          {% for child in item.children %}
+            <li><a href="{{ child.url }}" {% if page.url == child.url %}class="active"{% endif %}>{{ child.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% else %}
+      <a href="{{ item.url }}" class="sidebar-link {% if page.url == item.url %}active{% endif %}">{{ item.title }}</a>
+    {% endif %}
+  {% endfor %}
+</nav>
