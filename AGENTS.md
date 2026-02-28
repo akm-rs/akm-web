@@ -14,4 +14,10 @@ This website is hosted with github pages and available at akm.raphaelsimon.fr fo
 
 # Tech stack
 
+- Jekyll 
+- Ruby for live preview
+
 # Editing the website
+
+Any and all changes must happen through a PR and be live previewed for test before merge.
+GH Pages deploys from main !
