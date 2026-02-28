@@ -1,0 +1,16 @@
+- title: Getting Started
+  url: /docs/getting-started/
+- title: CLI Reference
+  url: /docs/cli-reference/
+- title: Domains
+  children:
+    - title: Skills
+      url: /docs/skills/
+    - title: Artifacts
+      url: /docs/artifacts/
+    - title: Instructions
+      url: /docs/instructions/
+- title: Configuration
+  url: /docs/configuration/
+- title: Skill Format
+  url: /docs/skill-format/

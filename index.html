@@ -1,0 +1,99 @@
+---
+layout: home
+title: AKM — Agent Kit Manager
+---
+
+<section class="hero">
+  <div class="hero-content">
+    <img src="/assets/images/logo.png" alt="AKM Logo" class="hero-logo">
+    <h1>Agent Kit Manager</h1>
+    <p class="hero-tagline">Manage reusable LLM agent skills, session artifacts, and global instructions across Claude Code, Copilot, OpenCode, and more.</p>
+    <div class="hero-actions">
+      <a href="/docs/getting-started/" class="btn btn-primary">Get Started &rarr;</a>
+      <a href="https://github.com/akm-rs/akm" class="btn btn-secondary">GitHub &#8599;</a>
+    </div>
+  </div>
+</section>
+
+<section class="domains">
+  <h2>Three Independent Domains</h2>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon">&#9889;</div>
+      <h3>Skills</h3>
+      <p>Cold library with three-layer activation: core (global), project (manifest), and session (JIT). Install once, activate anywhere.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#128230;</div>
+      <h3>Artifacts</h3>
+      <p>Auto-sync LLM session outputs &mdash; plans, research, notes &mdash; to a git repo. Bidirectional sync with auto-push on session exit.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#128203;</div>
+      <h3>Instructions</h3>
+      <p>Write global LLM instructions once, distribute to all tool directories automatically.</p>
+    </div>
+  </div>
+</section>
+
+<section class="install">
+  <h2>Quick Install</h2>
+  <div class="terminal">
+    <div class="terminal-header">
+      <span class="terminal-dot red"></span>
+      <span class="terminal-dot yellow"></span>
+      <span class="terminal-dot green"></span>
+    </div>
+    <pre><code><span class="terminal-comment"># Clone and install</span>
+<span class="terminal-prompt">$</span> git clone https://github.com/akm-rs/akm ~/akm
+<span class="terminal-prompt">$</span> bash ~/akm/install.sh
+
+<span class="terminal-comment"># Configure (interactive — defaults work)</span>
+<span class="terminal-prompt">$</span> akm setup
+
+<span class="terminal-comment"># Open a new terminal, then:</span>
+<span class="terminal-prompt">$</span> akm skills status</code></pre>
+  </div>
+</section>
+
+<section class="layers">
+  <h2>Three-Layer Skill Activation</h2>
+  <div class="layers-diagram">
+    <div class="layer layer-core">
+      <span class="layer-label">Layer 1 &mdash; Core</span>
+      <span class="layer-desc">Global, always available. Specs marked core=true symlinked into tool dirs.</span>
+    </div>
+    <div class="layer layer-project">
+      <span class="layer-label">Layer 2 &mdash; Project</span>
+      <span class="layer-desc">Declared in .agents/akm.json. Loaded at session start via shell wrappers.</span>
+    </div>
+    <div class="layer layer-session">
+      <span class="layer-label">Layer 3 &mdash; Session</span>
+      <span class="layer-desc">JIT mid-session. <code>akm skills load/unload</code> for on-demand activation.</span>
+    </div>
+  </div>
+</section>
+
+<section class="tools">
+  <h2>Works With Your Tools</h2>
+  <p>AKM supports any LLM-powered coding assistant that reads from dotfile directories:</p>
+  <div class="tool-grid">
+    <a href="https://docs.anthropic.com/en/docs/build-with-claude/claude-code" class="tool-card">
+      <strong>Claude Code</strong>
+      <span>Anthropic's CLI for Claude</span>
+    </a>
+    <a href="https://github.com/features/copilot" class="tool-card">
+      <strong>GitHub Copilot</strong>
+      <span>GitHub's AI coding assistant</span>
+    </a>
+    <a href="https://github.com/opencode-ai/opencode" class="tool-card">
+      <strong>OpenCode</strong>
+      <span>Open-source AI coding CLI</span>
+    </a>
+  </div>
+</section>
+
+<section class="deps">
+  <h2>Minimal Dependencies</h2>
+  <p>Just <code>bash</code>, <code>git</code>, and <code>jq</code>. No build system, no runtime, no package manager.</p>
+</section>
