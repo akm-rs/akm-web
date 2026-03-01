@@ -39,7 +39,7 @@ Session-level skills are loaded on demand during an active session. Use `akm ski
 
 ## Shell Wrappers
 
-`akm setup` wires `akm-init.sh` into your `.bashrc`, providing wrapper functions for `claude`, `copilot`, and `opencode`. These wrappers handle the full lifecycle:
+`akm setup` wires `akm-init.sh` into your `.bashrc`, providing wrapper functions for `claude`, `copilot`, `vibe`, and `opencode`. These wrappers handle the full lifecycle:
 
 1. **Pull** latest artifacts (if enabled)
 2. **Create** a per-session skills staging directory with manifest specs loaded
@@ -102,12 +102,36 @@ akm skills unload code-reviewer
 akm skills status
 ```
 
+## Dual Registry Model
+
+AKM supports two independent registries:
+
+- **Community registry** (`skills.community-registry`): Where you *pull* skills from (read-only source, defaults to [Skillverse](https://github.com/akm-rs/skillverse))
+- **Personal registry** (`skills.personal-registry`): Where you *push* your own skills to (read-write publish target)
+
+These are independent and can be different repos.
+
 ## Sync Pipeline
 
 `akm skills sync` runs the full sync pipeline:
 
-1. **Pull** latest from the skills remote (e.g., Skillverse)
-2. **Update** the cold library on disk
-3. **Rebuild** symlinks for core skills
+1. **Pull** community registry (e.g., Skillverse) to cache
+2. **Copy** community registry to cold library (clean slate)
+3. **Pull** personal registry to cache
+4. **Overlay** personal registry onto cold library (personal wins on conflict)
+5. **Regenerate** `library.json` from disk
+6. **Rebuild** core symlinks across all tool directories
 
-This keeps your local library up to date with the remote registry.
+This keeps your local library up to date with both registries.
+
+## Promoting and Publishing
+
+Import a project-local skill into cold storage, then publish to your personal registry:
+
+```bash
+# Import local skill into cold storage
+akm skills promote ./my-skill
+
+# Publish from cold storage to personal registry
+akm skills publish my-skill
+```

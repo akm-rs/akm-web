@@ -30,11 +30,11 @@ AKM provides **bidirectional sync** between your local artifacts directory and t
 - **On session start** (via shell wrappers): pull latest artifacts from the remote
 - **On session exit**: commit and push any new or changed artifacts
 
-This happens transparently when you use the shell wrappers (`claude`, `copilot`, `opencode`).
+This happens transparently when you use the shell wrappers (`claude`, `copilot`, `vibe`, `opencode`).
 
 ## Auto-Push
 
-The `artifacts.auto-push` config key controls whether artifacts are automatically committed and pushed when a session exits:
+The `ARTIFACTS_AUTO_PUSH` config key controls whether artifacts are automatically committed and pushed when a session exits:
 
 ```bash
 # Enable auto-push (default)
