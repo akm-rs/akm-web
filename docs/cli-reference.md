@@ -21,6 +21,7 @@ akm <command> [subcommand] [options]
 | `akm config <key>` | Get a specific config value |
 | `akm config <key> <value>` | Set a config value |
 | `akm sync` | Sync all enabled domains |
+| `akm update` | Pull latest akm, re-install, optionally sync |
 | `akm help` | Show help |
 
 ## Skills
@@ -42,9 +43,11 @@ akm <command> [subcommand] [options]
 | `akm skills clean --project` | Clean project-level specs |
 | `akm skills clean --dry-run` | Preview what would be cleaned |
 | `akm skills clean --project --migrate` | Migrate legacy copies to manifest |
-| `akm skills publish <id>` | Publish spec as PR to remote |
+| `akm skills promote <path>` | Import a local skill into cold storage |
+| `akm skills promote <path> --force` | Import without overwrite confirmation |
+| `akm skills edit <id>` | Edit spec metadata in `$EDITOR` |
+| `akm skills publish <id>` | Publish spec from cold storage to personal registry |
 | `akm skills publish <id> --dry-run` | Preview publish without pushing |
-| `akm skills publish <id> --force` | Overwrite existing spec on remote |
 | `akm skills libgen` | Regenerate library.json from disk |
 
 ## Artifacts
@@ -83,12 +86,21 @@ akm skills load code-reviewer
 akm skills unload code-reviewer
 ```
 
-### Publishing a skill
+### Promoting a local skill to cold storage
+
+```bash
+# Import a project-local skill into cold storage
+akm skills promote ./my-skill
+
+# You'll be prompted for description, tags, and core flag
+```
+
+### Publishing a skill to your personal registry
 
 ```bash
 # Preview first
 akm skills publish my-skill --dry-run
 
-# Then publish
+# Publish from cold storage to personal registry
 akm skills publish my-skill
 ```

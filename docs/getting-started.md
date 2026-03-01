@@ -37,11 +37,12 @@ Run the interactive setup wizard:
 akm setup
 ```
 
-Setup asks three things:
+Setup asks about each domain:
 
 1. **Enable skills?** (Y) -- Installs the cold library and sets up three-layer activation
-2. **Use Skillverse?** (Y) -- Configures [Skillverse](https://github.com/akm-rs/skillverse) as your default skills remote
-3. **Enable artifacts/instructions?** -- Configure artifact sync and global instructions
+2. **Use Skillverse?** (Y) -- Configures [Skillverse](https://github.com/akm-rs/skillverse) as your community registry
+3. **Personal registry?** -- Optionally configure a personal registry for publishing your own skills
+4. **Enable artifacts/instructions?** -- Configure artifact sync and global instructions
 
 The happy path is Enter through everything -- defaults work out of the box.
 
@@ -59,7 +60,7 @@ akm skills list
 
 ## Shell Wrappers
 
-`akm setup` wires `akm-init.sh` into your `.bashrc`, which provides wrapper functions for `claude`, `copilot`, and `opencode`. These wrappers automatically:
+`akm setup` wires `akm-init.sh` into your `.bashrc`, which provides wrapper functions for `claude`, `copilot`, `vibe`, and `opencode`. These wrappers automatically:
 
 1. Pull latest artifacts (if enabled)
 2. Create a per-session skills staging directory with manifest specs loaded

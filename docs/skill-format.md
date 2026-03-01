@@ -23,6 +23,7 @@ The `SKILL.md` file requires YAML frontmatter with two fields:
 |-------|----------|-------------|
 | `name` | Yes | Human-readable skill name |
 | `description` | Yes | What the skill does (convention: starts with "Use when...") |
+| `tags` | No | List of tags for filtering (e.g., `[testing, development]`) |
 
 Example:
 
@@ -30,6 +31,7 @@ Example:
 ---
 name: Test-Driven Development
 description: Use when implementing any feature or bugfix, before writing implementation code
+tags: [testing, development]
 ---
 
 ## Instructions
@@ -51,9 +53,21 @@ agents/
 
 Agents use the same `name` and `description` frontmatter fields as skills.
 
-## Publishing Skills
+## Promoting and Publishing Skills
 
-To publish a project-local skill to your skills remote:
+### Promote: Import a local skill into cold storage
+
+Use `akm skills promote` to import a project-local skill into your cold library:
+
+```bash
+akm skills promote ./my-skill
+```
+
+You'll be prompted interactively for description, tags, and whether to mark the skill as core (globally available). Use `--force` to skip overwrite confirmation if the skill already exists.
+
+### Publish: Push from cold storage to your personal registry
+
+Use `akm skills publish` to push a skill from cold storage to your personal registry:
 
 ```bash
 akm skills publish my-skill
@@ -61,29 +75,28 @@ akm skills publish my-skill
 
 This does the following:
 
-1. Validates the skill's frontmatter
-2. Copies the spec to a `publish/my-skill` branch in the cached skills remote
-3. Commits and pushes the branch
-4. Opens a PR via `gh`
+1. Validates the spec exists in cold storage
+2. Copies it to the cached personal registry
+3. Regenerates `library.json` in the registry
+4. Commits and pushes to the personal registry remote
 
-### Options
+Requires `SKILLS_PERSONAL_REGISTRY` to be configured (run `akm setup --skills`).
 
 | Flag | Description |
 |------|-------------|
 | `--dry-run` | Preview what would be published without pushing |
-| `--force` | Overwrite an existing spec on the remote |
 
 ### Example workflow
 
 ```bash
-# Preview first
+# Import a local skill into cold storage
+akm skills promote ./my-skill
+
+# Preview what would be published
 akm skills publish my-skill --dry-run
 
 # Publish for real
 akm skills publish my-skill
-
-# Force overwrite if the skill already exists
-akm skills publish my-skill --force
 ```
 
 ## Agent Skills Specification
