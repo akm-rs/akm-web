@@ -1,7 +1,7 @@
 # Project LLM Instructions
 
 akm-web is the website for the Agnet Kit Manager CLI tool - akm
-akm is available at github.com/akm-rs/akm
+akm is available at github.com/akm-rs/akm-rs
 
 akm's purpose is to offer automated and centralised management of the LLM agent kit : 
 - skills

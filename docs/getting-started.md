@@ -5,29 +5,47 @@ description: Install and configure AKM in under a minute.
 
 ## Prerequisites
 
-AKM requires two tools:
+AKM requires one runtime dependency:
 
-- **jq** -- JSON processor
-  ```bash
-  # Debian/Ubuntu
-  sudo apt-get install jq
-
-  # macOS
-  brew install jq
-  ```
-
-- **git** -- For skills sync, repo detection, and artifact sync
+- **git** — For skills sync, repo detection, and artifact sync
 
 ## Install
 
-Clone the repository and run the installer:
+### Quick install (Linux x86_64)
+
+Download the latest release binary:
 
 ```bash
-git clone https://github.com/akm-rs/akm ~/akm
-bash ~/akm/install.sh
+curl -fsSL https://raw.githubusercontent.com/akm-rs/akm-rs/main/scripts/install.sh | bash
 ```
 
-The installer places the `akm` binary in `~/.local/bin/` and the shell integration in `~/.local/share/akm/shell/`.
+This downloads the latest release binary to `~/.local/bin/akm`.
+
+Options:
+
+```bash
+# Install a specific version
+AKM_VERSION=1.0.0 curl -fsSL https://raw.githubusercontent.com/akm-rs/akm-rs/main/scripts/install.sh | bash
+
+# Install to a custom directory
+AKM_INSTALL_DIR=/usr/local/bin curl -fsSL https://raw.githubusercontent.com/akm-rs/akm-rs/main/scripts/install.sh | bash
+```
+
+### From crates.io
+
+If you have Rust installed:
+
+```bash
+cargo install akm
+```
+
+### From source
+
+```bash
+git clone https://github.com/akm-rs/akm-rs.git
+cd akm-rs
+cargo install --path .
+```
 
 ## Setup
 

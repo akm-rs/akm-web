@@ -21,7 +21,8 @@ akm <command> [subcommand] [options]
 | `akm config <key>` | Get a specific config value |
 | `akm config <key> <value>` | Set a config value |
 | `akm sync` | Sync all enabled domains |
-| `akm update` | Pull latest akm, re-install, optionally sync |
+| `akm update` | Check for and install latest version |
+| `akm completions <shell>` | Generate shell completion script (bash, zsh, fish) |
 | `akm help` | Show help |
 
 ## Skills
@@ -29,20 +30,23 @@ akm <command> [subcommand] [options]
 | Command | Description |
 |---------|-------------|
 | `akm skills sync` | Pull remote, update cold library, rebuild symlinks |
+| `akm skills sync --quiet` | Sync with suppressed output |
 | `akm skills add <id> [id...]` | Add spec(s) to the project manifest |
 | `akm skills remove <id> [id...]` | Remove spec(s) from the project manifest |
 | `akm skills load <id> [id...]` | Load spec(s) into the active session (JIT) |
 | `akm skills unload <id> [id...]` | Remove spec(s) from the active session |
 | `akm skills loaded` | Show active session specs with provenance |
-| `akm skills list` | Browse library |
+| `akm skills list` | Browse library (interactive TUI) |
+| `akm skills list --plain` | Browse library (plain text output) |
 | `akm skills list --tag TAG` | Filter library by tag |
 | `akm skills list --type TYPE` | Filter library by type |
-| `akm skills search <query>` | Search by keyword |
-| `akm skills status` | Full status overview |
+| `akm skills search <query>` | Search by keyword (interactive TUI) |
+| `akm skills search <query> --plain` | Search by keyword (plain text) |
+| `akm skills status` | Full status overview (interactive TUI) |
+| `akm skills status --plain` | Full status overview (plain text) |
 | `akm skills clean` | Remove stale specs |
 | `akm skills clean --project` | Clean project-level specs |
 | `akm skills clean --dry-run` | Preview what would be cleaned |
-| `akm skills clean --project --migrate` | Migrate legacy copies to manifest |
 | `akm skills promote <path>` | Import a local skill into cold storage |
 | `akm skills promote <path> --force` | Import without overwrite confirmation |
 | `akm skills edit <id>` | Edit spec metadata in `$EDITOR` |
