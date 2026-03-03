@@ -106,8 +106,8 @@ akm skills status
 
 AKM supports two independent registries:
 
-- **Community registry** (`skills.community-registry`): Where you *pull* skills from (read-only source, defaults to [Skillverse](https://github.com/akm-rs/skillverse))
-- **Personal registry** (`skills.personal-registry`): Where you *push* your own skills to (read-write publish target)
+- **Community registry** (`skills.community_registry`): Where you *pull* skills from (read-only source, defaults to [Skillverse](https://github.com/akm-rs/skillverse))
+- **Personal registry** (`skills.personal_registry`): Where you *push* your own skills to (read-write publish target)
 
 These are independent and can be different repos.
 

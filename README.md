@@ -1,6 +1,6 @@
 # akm-web
 
-Website for [AKM — Agent Kit Manager](https://github.com/akm-rs/akm), hosted on GitHub Pages at [akm.raphaelsimon.fr](https://akm.raphaelsimon.fr).
+Website for [AKM — Agent Kit Manager](https://github.com/akm-rs/akm-rs), hosted on GitHub Pages at [akm.raphaelsimon.fr](https://akm.raphaelsimon.fr).
 
 ## Local Preview
 

@@ -34,14 +34,14 @@ This happens transparently when you use the shell wrappers (`claude`, `copilot`,
 
 ## Auto-Push
 
-The `ARTIFACTS_AUTO_PUSH` config key controls whether artifacts are automatically committed and pushed when a session exits:
+The `artifacts.auto_push` config key controls whether artifacts are automatically committed and pushed when a session exits:
 
 ```bash
 # Enable auto-push (default)
-akm config artifacts.auto-push true
+akm config artifacts.auto_push true
 
 # Disable auto-push
-akm config artifacts.auto-push false
+akm config artifacts.auto_push false
 ```
 
 When auto-push is enabled, the shell wrapper will commit and push artifacts on session exit without any manual intervention.
@@ -62,6 +62,6 @@ This performs a bidirectional sync: pulls from the remote, then commits and push
 |-----|-------------|---------|
 | `artifacts.remote` | Git remote URL for artifacts repo | *(set during setup)* |
 | `artifacts.dir` | Local artifacts directory | `~/.akm/artifacts` |
-| `artifacts.auto-push` | Auto commit+push on session exit | `true` |
+| `artifacts.auto_push` | Auto commit+push on session exit | `true` |
 
 See [Configuration](/docs/configuration/) for details on managing all config keys.

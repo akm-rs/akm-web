@@ -80,7 +80,7 @@ This does the following:
 3. Regenerates `library.json` in the registry
 4. Commits and pushes to the personal registry remote
 
-Requires `SKILLS_PERSONAL_REGISTRY` to be configured (run `akm setup --skills`).
+Requires `skills.personal_registry` to be configured (run `akm setup --skills`).
 
 | Flag | Description |
 |------|-------------|
