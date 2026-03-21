@@ -47,6 +47,9 @@ akm <command> [subcommand] [options]
 | `akm skills clean` | Remove stale specs |
 | `akm skills clean --project` | Clean project-level specs |
 | `akm skills clean --dry-run` | Preview what would be cleaned |
+| `akm skills import <github-url>` | Import a skill from a GitHub URL |
+| `akm skills import <github-url> --id <name>` | Import with a custom skill ID |
+| `akm skills import <github-url> --force` | Import without overwrite confirmation |
 | `akm skills promote <path>` | Import a local skill into cold storage |
 | `akm skills promote <path> --force` | Import without overwrite confirmation |
 | `akm skills edit <id>` | Edit spec metadata in `$EDITOR` |
@@ -88,6 +91,19 @@ akm skills load code-reviewer
 
 # When done, unload it
 akm skills unload code-reviewer
+```
+
+### Importing a skill from GitHub
+
+```bash
+# Import from a directory URL
+akm skills import https://github.com/user/repo/tree/main/skills/my-skill
+
+# Import with a custom ID
+akm skills import https://github.com/user/repo/tree/main/skills/my-skill --id custom-name
+
+# For private repos, set GITHUB_TOKEN
+GITHUB_TOKEN=ghp_... akm skills import https://github.com/user/repo/tree/main/skills/my-skill
 ```
 
 ### Promoting a local skill to cold storage

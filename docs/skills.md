@@ -124,6 +124,23 @@ These are independent and can be different repos.
 
 This keeps your local library up to date with both registries.
 
+## Importing from GitHub
+
+You can import any skill directly from a GitHub repository URL:
+
+```bash
+# Import from a directory URL
+akm skills import https://github.com/user/repo/tree/main/skills/my-skill
+
+# Import with a custom ID
+akm skills import https://github.com/user/repo/tree/main/skills/my-skill --id custom-name
+
+# Overwrite without confirmation
+akm skills import https://github.com/user/repo/tree/main/skills/my-skill --force
+```
+
+Both `/tree/` (directory) and `/blob/` (file) GitHub URLs are supported. For private repos, set the `GITHUB_TOKEN` environment variable.
+
 ## Promoting and Publishing
 
 Import a project-local skill into cold storage, then publish to your personal registry:

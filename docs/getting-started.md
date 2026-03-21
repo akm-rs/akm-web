@@ -11,24 +11,33 @@ AKM requires one runtime dependency:
 
 ## Install
 
-### Quick install (Linux x86_64)
+### Quick install (Linux x86_64 / macOS ARM)
 
 Download the latest release binary:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/akm-rs/akm-rs/main/scripts/install.sh | bash
+curl -fsSL https://akm.raphaelsimon.fr/install | sh
 ```
 
-This downloads the latest release binary to `~/.local/bin/akm`.
+This downloads the latest release binary to `~/.local/bin/akm`. The installer auto-detects your platform and downloads the correct binary.
+
+**Supported platforms:**
+
+| Platform | Architecture | Asset |
+|----------|-------------|-------|
+| Linux | x86_64 | `akm-linux-x86_64` (static, musl) |
+| macOS | Apple Silicon (M1+) | `akm-macos-aarch64` |
+
+Other platforms (Linux ARM, Intel Mac) can install via `cargo install akm`.
 
 Options:
 
 ```bash
 # Install a specific version
-AKM_VERSION=1.0.0 curl -fsSL https://raw.githubusercontent.com/akm-rs/akm-rs/main/scripts/install.sh | bash
+AKM_VERSION=1.0.0 curl -fsSL https://akm.raphaelsimon.fr/install | sh
 
 # Install to a custom directory
-AKM_INSTALL_DIR=/usr/local/bin curl -fsSL https://raw.githubusercontent.com/akm-rs/akm-rs/main/scripts/install.sh | bash
+AKM_INSTALL_DIR=/usr/local/bin curl -fsSL https://akm.raphaelsimon.fr/install | sh
 ```
 
 ### From crates.io
