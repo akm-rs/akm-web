@@ -30,21 +30,19 @@ AKM provides **bidirectional sync** between your local artifacts directory and t
 - **On session start** (via shell wrappers): pull latest artifacts from the remote
 - **On session exit**: commit and push any new or changed artifacts
 
-This happens transparently when you use the shell wrappers (`claude`, `copilot`, `vibe`, `opencode`).
+This happens transparently when you use the shell wrappers (`claude`, `copilot`, `opencode`, `pi`).
 
 ## Auto-Push
 
-The `artifacts.auto_push` config key controls whether artifacts are automatically committed and pushed when a session exits:
+The `artifacts.auto-push` config key controls whether artifacts are automatically committed and pushed when a session exits:
 
 ```bash
 # Enable auto-push (default)
-akm config artifacts.auto_push true
+akm config artifacts.auto-push true
 
 # Disable auto-push
-akm config artifacts.auto_push false
+akm config artifacts.auto-push false
 ```
-
-When auto-push is enabled, the shell wrapper will commit and push artifacts on session exit without any manual intervention.
 
 ## Manual Sync
 
@@ -62,6 +60,6 @@ This performs a bidirectional sync: pulls from the remote, then commits and push
 |-----|-------------|---------|
 | `artifacts.remote` | Git remote URL for artifacts repo | *(set during setup)* |
 | `artifacts.dir` | Local artifacts directory | `~/.akm/artifacts` |
-| `artifacts.auto_push` | Auto commit+push on session exit | `true` |
+| `artifacts.auto-push` | Auto commit+push on session exit | `true` |
 
 See [Configuration](/docs/configuration/) for details on managing all config keys.

@@ -13,15 +13,11 @@ AKM requires one runtime dependency:
 
 ### Quick install (Linux x86_64 / macOS ARM)
 
-Download the latest release binary:
-
 ```bash
 curl -fsSL https://akm.raphaelsimon.fr/install | sh
 ```
 
-This downloads the latest release binary to `~/.local/bin/akm`. The installer auto-detects your platform and downloads the correct binary.
-
-**Supported platforms:**
+Installs the latest release binary to `~/.local/bin/akm`, detecting the platform:
 
 | Platform | Architecture | Asset |
 |----------|-------------|-------|
@@ -87,14 +83,14 @@ akm skills list
 
 ## Shell Wrappers
 
-`akm setup` wires `akm-init.sh` into your `.bashrc`, which provides wrapper functions for `claude`, `copilot`, `vibe`, and `opencode`. These wrappers automatically:
+`akm setup` wires `akm-init.sh` into your `.bashrc`, which provides wrapper functions for `claude`, `copilot`, `opencode` and `pi`. These wrappers automatically:
 
 1. Pull latest artifacts (if enabled)
 2. Create a per-session skills staging directory with manifest specs loaded
-3. Pass artifact and staging dirs to the tool via `--add-dir`
+3. Hand the staging and artifact dirs to the tool in the form it understands (`--add-dir`, `OPENCODE_CONFIG_DIR`, or `--skill`)
 4. On exit: destroy staging dir, commit+push artifacts (if auto-push enabled)
 
-This means you just type `claude` or `copilot` as usual -- AKM handles skills and artifacts transparently.
+You just type `claude`, `copilot`, `opencode` or `pi` as usual.
 
 ## Next Steps
 

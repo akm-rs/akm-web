@@ -13,17 +13,14 @@ skills/<name>/
 └── references/        # Optional supporting files
 ```
 
-Each skill is a directory containing a `SKILL.md` file as the entry point, plus an optional `references/` directory for supporting files.
-
 ## YAML Frontmatter
 
-The `SKILL.md` file requires YAML frontmatter with two fields:
+`SKILL.md` requires YAML frontmatter with two fields:
 
-| Field | Required | Description |
-|-------|----------|-------------|
-| `name` | Yes | Human-readable skill name |
-| `description` | Yes | What the skill does (convention: starts with "Use when...") |
-| `tags` | No | List of tags for filtering (e.g., `[testing, development]`) |
+| Field | Description |
+|-------|-------------|
+| `name` | Human-readable skill name |
+| `description` | What the skill does (convention: starts with "Use when...") |
 
 Example:
 
@@ -31,7 +28,6 @@ Example:
 ---
 name: Test-Driven Development
 description: Use when implementing any feature or bugfix, before writing implementation code
-tags: [testing, development]
 ---
 
 ## Instructions
@@ -40,7 +36,9 @@ Write tests first, then implement code to make them pass.
 ...
 ```
 
-The body of `SKILL.md` (after the frontmatter) contains the actual instructions that will be provided to the LLM agent.
+The body of `SKILL.md`, after the frontmatter, is what the agent reads.
+
+Tags and the core flag are not frontmatter — they live in `library.json`, and are set when you promote or import a skill, or later with `akm skills edit <id>`.
 
 ## Agent Format
 
@@ -80,7 +78,7 @@ This does the following:
 3. Regenerates `library.json` in the registry
 4. Commits and pushes to the personal registry remote
 
-Requires `skills.personal_registry` to be configured (run `akm setup --skills`).
+Requires `skills.personal-registry` to be configured (run `akm setup --skills`).
 
 | Flag | Description |
 |------|-------------|
@@ -98,10 +96,6 @@ akm skills publish my-skill --dry-run
 # Publish for real
 akm skills publish my-skill
 ```
-
-## Agent Skills Specification
-
-AKM skills conform to the open [Agent Skills specification](https://agentskills.io/specification). This standard ensures skills are portable across different tools and ecosystems.
 
 ## Related
 
