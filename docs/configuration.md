@@ -28,14 +28,20 @@ auto_push = true
 
 ## Config Keys
 
+Keys are hyphenated on the command line and underscored in the TOML file
+(`akm config skills.community-registry` reads `skills.community_registry`).
+
 | Key | Description | Default |
 |-----|-------------|---------|
 | `features` | Enabled domains (comma-separated: `skills`, `artifacts`, `instructions`) | `skills` |
-| `skills.community_registry` | Git remote for community skills (read-only source) | [Skillverse](https://github.com/akm-rs/skillverse) |
-| `skills.personal_registry` | Git remote for your own skills (read-write publish target) | *(set during setup)* |
+| `skills.community-registry` | Git remote for community skills (read-only source) | [Skillverse](https://github.com/akm-rs/skillverse) |
+| `skills.personal-registry` | Git remote for your own skills (read-write publish target) | *(set during setup)* |
 | `artifacts.remote` | Git remote for artifacts repo | *(set during setup)* |
 | `artifacts.dir` | Local artifacts directory | `~/.akm/artifacts` |
-| `artifacts.auto_push` | Auto commit+push artifacts on session exit | `true` |
+| `artifacts.auto-push` | Auto commit+push artifacts on session exit | `true` |
+| `update.url` | GitHub Releases API URL used by `akm update` | akm-rs latest release |
+| `update.check-interval` | Seconds between background update checks | `86400` |
+| `update.auto-check` | Enable background update checks | `true` |
 
 ## Managing Config
 
@@ -46,10 +52,10 @@ Use the `akm config` command:
 akm config
 
 # Get a specific value
-akm config skills.community_registry
+akm config skills.community-registry
 
 # Set a value
-akm config artifacts.auto_push false
+akm config artifacts.auto-push false
 ```
 
 ## Machine Layout

@@ -14,7 +14,7 @@ Skills follow the [Agent Skills specification](https://agentskills.io/specificat
 ```
 Layer 1 — Core (global, always available)
   Specs marked core=true in library.json
-  Symlinked into ~/.claude/, ~/.copilot/, ~/.agents/, ~/.vibe/
+  Symlinked into ~/.claude/, ~/.copilot/, ~/.agents/, ~/.pi/agent/, ~/.vibe/
 
 Layer 2 — Project (declared in manifest, loaded at session start)
   .agents/akm.json lists skill/agent IDs
@@ -27,7 +27,7 @@ Layer 3 — Session (JIT, mid-session)
 
 ### Layer 1 -- Core
 
-Core skills are globally available across all projects. Specs marked `core=true` in `library.json` are symlinked directly into tool directories (`~/.claude/`, `~/.copilot/`, `~/.agents/`, `~/.vibe/`).
+Core skills are globally available across all projects. Specs marked `core=true` in `library.json` are symlinked directly into tool directories (`~/.claude/`, `~/.copilot/`, `~/.agents/`, `~/.pi/agent/`, `~/.vibe/`).
 
 ### Layer 2 -- Project
 
@@ -39,12 +39,14 @@ Session-level skills are loaded on demand during an active session. Use `akm ski
 
 ## Shell Wrappers
 
-`akm setup` wires `akm-init.sh` into your `.bashrc`, providing wrapper functions for `claude`, `copilot`, `vibe`, and `opencode`. These wrappers handle the full lifecycle:
+`akm setup` wires `akm-init.sh` into your `.bashrc`, providing wrapper functions for `claude`, `copilot`, `opencode` and `pi`. These wrappers handle the full lifecycle:
 
 1. **Pull** latest artifacts (if enabled)
 2. **Create** a per-session skills staging directory with manifest specs loaded
-3. **Pass** artifact and staging dirs to the tool via `--add-dir`
+3. **Hand** the staging and artifact dirs to the tool in the form it understands — `--add-dir` for Claude Code and Copilot, `OPENCODE_CONFIG_DIR` for OpenCode, `--skill` for Pi
 4. **Cleanup** on exit: destroy staging dir, commit+push artifacts (if auto-push enabled)
+
+Mistral Vibe has no way to take a directory at launch, so it gets no wrapper — only core skills and global instructions, in `~/.vibe/`.
 
 ## Project Manifests
 
@@ -106,8 +108,8 @@ akm skills status
 
 AKM supports two independent registries:
 
-- **Community registry** (`skills.community_registry`): Where you *pull* skills from (read-only source, defaults to [Skillverse](https://github.com/akm-rs/skillverse))
-- **Personal registry** (`skills.personal_registry`): Where you *push* your own skills to (read-write publish target)
+- **Community registry** (`skills.community-registry`): Where you *pull* skills from (read-only source, defaults to [Skillverse](https://github.com/akm-rs/skillverse))
+- **Personal registry** (`skills.personal-registry`): Where you *push* your own skills to (read-write publish target)
 
 These are independent and can be different repos.
 
@@ -121,8 +123,6 @@ These are independent and can be different repos.
 4. **Overlay** personal registry onto cold library (personal wins on conflict)
 5. **Regenerate** `library.json` from disk
 6. **Rebuild** core symlinks across all tool directories
-
-This keeps your local library up to date with both registries.
 
 ## Importing from GitHub
 

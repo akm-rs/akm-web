@@ -11,18 +11,17 @@ AKM lets you maintain a single set of global LLM instructions that are automatic
 ~/.akm/global-instructions.md
 ```
 
-Write your instructions once, and AKM ensures every coding assistant sees them.
-
 ## Target Mapping
 
-AKM distributes your global instructions to the appropriate directories and filenames for each supported tool. The mapping is defined in `tools.json`:
+Each tool gets the instructions under the directory and filename it expects:
 
 | Tool | Directory | Filename |
 |------|-----------|----------|
 | Claude Code | `~/.claude/` | `CLAUDE.md` |
 | GitHub Copilot | `~/.copilot/` | `copilot-instructions.md` |
 | OpenCode | `~/.agents/` | `AGENTS.md` |
-| Mistral Vibe | `~/.vibe/` | `VIBE.md` |
+| Pi | `~/.pi/agent/` | `AGENTS.md` |
+| Mistral Vibe | `~/.vibe/prompts/` | `cli.md` |
 
 ## Commands
 
@@ -54,7 +53,7 @@ Create project-level instruction files in the current project root:
 akm instructions scaffold-project
 ```
 
-This creates `AGENTS.md` and `CLAUDE.md` in the current directory, providing a starting point for project-specific instructions.
+This creates `AGENTS.md` and `CLAUDE.md` in the current directory.
 
 ## Workflow
 
