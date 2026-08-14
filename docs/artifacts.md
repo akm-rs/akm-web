@@ -44,6 +44,21 @@ akm config artifacts.auto-push true
 akm config artifacts.auto-push false
 ```
 
+## Browsing
+
+`akm artifacts` with no subcommand opens a two-pane explorer on a terminal: a
+lazily-expanding tree on the left, a live plain-text preview on the right.
+`Enter` on a file opens it in `$EDITOR` and returns; directories expand with
+`→`/`Enter` and collapse with `←`.
+
+```bash
+# Two-pane explorer
+akm artifacts
+
+# Print the tree as plain text instead (agent/scripting)
+akm artifacts --plain
+```
+
 ## Manual Sync
 
 You can manually sync artifacts at any time:

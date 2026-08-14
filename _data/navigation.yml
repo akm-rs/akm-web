@@ -10,7 +10,11 @@
       url: /docs/artifacts/
     - title: Instructions
       url: /docs/instructions/
+- title: Shared Registries
+  url: /docs/shared-registries/
 - title: Configuration
   url: /docs/configuration/
 - title: Skill Format
   url: /docs/skill-format/
+- title: Changelog
+  url: /docs/changelog/

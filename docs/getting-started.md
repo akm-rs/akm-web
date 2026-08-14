@@ -60,14 +60,15 @@ Run the interactive setup wizard:
 akm setup
 ```
 
-Setup asks about each domain:
+Setup walks through each domain and wires shell integration into your `.bashrc`:
 
-1. **Enable skills?** (Y) -- Installs the cold library and sets up three-layer activation
-2. **Use Skillverse?** (Y) -- Configures [Skillverse](https://github.com/akm-rs/skillverse) as your community registry
-3. **Personal registry?** -- Optionally configure a personal registry for publishing your own skills
-4. **Enable artifacts/instructions?** -- Configure artifact sync and global instructions
+1. **Skills** -- installs the cold library and sets up core + project activation. Point it at your personal registry (`registry.url`) — the git repo that *is* your library — for sync and publishing.
+2. **Artifacts** -- configure a git remote to persist session outputs (plans, research, notes).
+3. **Instructions** -- enable global instruction distribution to every tool directory.
 
-The happy path is Enter through everything -- defaults work out of the box.
+The happy path is Enter through everything -- defaults work out of the box. You
+can add read-only [shared registries](/docs/shared-registries/) to import from
+at any time, later.
 
 ## Verify
 
@@ -94,6 +95,6 @@ You just type `claude`, `copilot`, `opencode` or `pi` as usual.
 
 ## Next Steps
 
-- [Skills](/docs/skills/) -- Learn about three-layer activation and managing skills
+- [Skills](/docs/skills/) -- Learn about two-layer activation and managing skills
 - [CLI Reference](/docs/cli-reference/) -- Complete command reference
 - [Configuration](/docs/configuration/) -- Customize AKM settings
