@@ -22,7 +22,7 @@ title: AKM — Agent Kit Manager
     <div class="card">
       <div class="card-icon">&#9889;</div>
       <h3>Skills</h3>
-      <p>Cold library with three-layer activation: core (global), project (manifest), and session (JIT). Install once, activate anywhere.</p>
+      <p>Cold library wired into every harness. Core skills are global; project skills load per session from a manifest. Install once, activate anywhere.</p>
     </div>
     <div class="card">
       <div class="card-icon">&#128230;</div>
@@ -63,19 +63,15 @@ title: AKM — Agent Kit Manager
 </section>
 
 <section class="layers">
-  <h2>Three-Layer Skill Activation</h2>
+  <h2>Two-Layer Skill Activation</h2>
   <div class="layers-diagram">
     <div class="layer layer-core">
       <span class="layer-label">Layer 1 &mdash; Core</span>
-      <span class="layer-desc">Global, always available. Specs marked core=true symlinked into tool dirs.</span>
+      <span class="layer-desc">Global, always available. Specs marked <code>core</code> symlinked into every tool dir.</span>
     </div>
     <div class="layer layer-project">
       <span class="layer-label">Layer 2 &mdash; Project</span>
-      <span class="layer-desc">Declared in .agents/akm.json. Loaded at session start via shell wrappers.</span>
-    </div>
-    <div class="layer layer-session">
-      <span class="layer-label">Layer 3 &mdash; Session</span>
-      <span class="layer-desc">JIT mid-session. <code>akm skills load/unload</code> for on-demand activation.</span>
+      <span class="layer-desc">Declared in <code>.agents/akm.json</code>, mounted per session by the shell wrappers. <code>akm skills add/remove</code> refresh the running session live.</span>
     </div>
   </div>
 </section>

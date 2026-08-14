@@ -1,52 +1,64 @@
 ---
 title: Skills
-description: How AKM manages LLM agent skills with three-layer activation.
+description: How AKM manages LLM agent skills — a library that is your registry's working tree.
 ---
 
 ## Overview
 
-AKM maintains a **cold library** of installed skills on your machine. Skills are never loaded globally by default -- they are activated through a three-layer system that gives you precise control over which skills are available in each context.
+AKM maintains a **cold library** of skills on your machine. The library is the
+git working tree of your personal registry, checked out at
+`~/.local/share/akm/library/`. A skill you edit locally survives the next sync,
+AKM can tell you which side has moved, and publishing one skill is one commit.
 
-Skills follow the [Agent Skills specification](https://agentskills.io/specification), an open standard for portable AI coding skills.
+Skills are never all loaded globally. They activate through two layers that give
+you precise control over which skills are available in each context.
 
-## Three-Layer Activation
+Skills follow the [Agent Skills specification](https://agentskills.io/specification),
+an open standard for portable AI coding skills.
+
+## Two-Layer Activation
 
 ```
 Layer 1 — Core (global, always available)
-  Specs marked core=true in library.json
+  Specs marked core in their akm.json sidecar
   Symlinked into ~/.claude/, ~/.copilot/, ~/.agents/, ~/.pi/agent/, ~/.vibe/
 
-Layer 2 — Project (declared in manifest, loaded at session start)
+Layer 2 — Project (declared in a manifest, mounted per session)
   .agents/akm.json lists skill/agent IDs
-  Shell wrapper reads manifest → symlinks into per-session staging dir
-
-Layer 3 — Session (JIT, mid-session)
-  akm skills load <id>   → adds to active staging dir
-  akm skills unload <id> → removes from staging dir
+  Shell wrapper reads the manifest → symlinks into a per-session staging dir
+  akm skills add/remove refresh the running session immediately
 ```
 
-### Layer 1 -- Core
+### Layer 1 — Core
 
-Core skills are globally available across all projects. Specs marked `core=true` in `library.json` are symlinked directly into tool directories (`~/.claude/`, `~/.copilot/`, `~/.agents/`, `~/.pi/agent/`, `~/.vibe/`).
+Core skills are globally available across all projects. Specs marked `core` in
+their `akm.json` sidecar are symlinked directly into tool directories
+(`~/.claude/`, `~/.copilot/`, `~/.agents/`, `~/.pi/agent/`, `~/.vibe/`). The
+`core` default lives in the sidecar and propagates to your other machines;
+a per-machine override stays in `local.json` and does not.
 
-### Layer 2 -- Project
+### Layer 2 — Project
 
-Project-level skills are declared in a manifest file and loaded automatically when you start a session. The shell wrappers read the manifest and symlink the declared specs into a per-session staging directory.
-
-### Layer 3 -- Session
-
-Session-level skills are loaded on demand during an active session. Use `akm skills load` and `akm skills unload` for just-in-time activation.
+Project-level skills are declared in a manifest file and loaded automatically
+when you start a session. The shell wrappers read the manifest and symlink the
+declared specs into a per-session staging directory. `akm skills add` and
+`akm skills remove` update that manifest and refresh the active session's
+symlinks straight away, so a skill added mid-session is available without a
+restart.
 
 ## Shell Wrappers
 
-`akm setup` wires `akm-init.sh` into your `.bashrc`, providing wrapper functions for `claude`, `copilot`, `opencode` and `pi`. These wrappers handle the full lifecycle:
+`akm setup` wires `akm-init.sh` into your `.bashrc`, providing wrapper functions
+for `claude`, `copilot`, `opencode` and `pi`. These wrappers handle the full
+lifecycle:
 
 1. **Pull** latest artifacts (if enabled)
 2. **Create** a per-session skills staging directory with manifest specs loaded
 3. **Hand** the staging and artifact dirs to the tool in the form it understands — `--add-dir` for Claude Code and Copilot, `OPENCODE_CONFIG_DIR` for OpenCode, `--skill` for Pi
-4. **Cleanup** on exit: destroy staging dir, commit+push artifacts (if auto-push enabled)
+4. **Cleanup** on exit: destroy the staging dir, commit+push artifacts (if auto-push enabled)
 
-Mistral Vibe has no way to take a directory at launch, so it gets no wrapper — only core skills and global instructions, in `~/.vibe/`.
+Mistral Vibe has no way to take a directory at launch, so it gets no wrapper —
+only core skills and global instructions, in `~/.vibe/`.
 
 ## Project Manifests
 
@@ -59,10 +71,11 @@ Declare which skills a project uses in `.agents/akm.json`:
 }
 ```
 
-These are loaded automatically when you start a session via the shell wrappers. Manage with:
+These are loaded automatically when you start a session via the shell wrappers.
+Manage with:
 
 ```bash
-# Add skills to the manifest
+# Add skills to the manifest (also loads them into the running session)
 akm skills add test-driven-development systematic-debugging
 
 # Remove a skill
@@ -74,7 +87,7 @@ akm skills remove systematic-debugging
 ### Browsing and searching
 
 ```bash
-# List all installed skills
+# Browse the library
 akm skills list
 
 # Filter by tag or type
@@ -85,48 +98,84 @@ akm skills list --type agent
 akm skills search debugging
 ```
 
-### Loading and unloading (session)
-
-```bash
-# Load a skill mid-session
-akm skills load code-reviewer
-
-# Check what's loaded and where it came from
-akm skills loaded
-
-# Unload when done
-akm skills unload code-reviewer
-```
-
 ### Full status overview
 
 ```bash
 akm skills status
 ```
 
-## Dual Registry Model
+The `list` and `status` TUIs share a set of action keys — `e` edits a spec, `a`
+adds it to the project manifest, `r` removes it, `R` renames, `D` deletes. On a
+spec that shows drift, `p` queues it to publish and `u` discards your local
+edits. Add `--plain` to either command for scriptable plain-text output.
 
-AKM supports two independent registries:
+## The Registry Model
 
-- **Community registry** (`skills.community-registry`): Where you *pull* skills from (read-only source, defaults to [Skillverse](https://github.com/akm-rs/skillverse))
-- **Personal registry** (`skills.personal-registry`): Where you *push* your own skills to (read-write publish target)
+Your library **is** your personal registry's git working tree. There is one
+writable registry — configured with `registry.url` — and it is the only one
+mounted into tool directories. Read-only [shared registries](/docs/shared-registries/)
+are troves you import from; nothing in them is ever mounted.
 
-These are independent and can be different repos.
+`akm skills sync` keeps the library in step with the registry:
 
-## Sync Pipeline
+1. **Fetch** the registry
+2. **Fast-forward** the working tree — never a real merge, so no conflict marker
+   can reach a skill symlinked live into a tool directory
+3. An edit of yours to a skill the update also touched is **parked** and put back
+   on top; everything else fast-forwards
+4. **Regenerate** `library.json` and **rebuild** core symlinks
 
-`akm skills sync` runs the full sync pipeline:
+Sync never merges and never prompts — it reports what needs a decision, and you
+decide with `publish`, `diff` or `revert`.
 
-1. **Pull** community registry (e.g., Skillverse) to cache
-2. **Copy** community registry to cold library (clean slate)
-3. **Pull** personal registry to cache
-4. **Overlay** personal registry onto cold library (personal wins on conflict)
-5. **Regenerate** `library.json` from disk
-6. **Rebuild** core symlinks across all tool directories
+## Drift Markers
+
+Because the library is a git working tree, AKM can tell you which side moved.
+Each spec carries a marker in `akm skills list`, `akm skills status` and the
+sync report:
+
+| Marker | Meaning | What to do |
+|--------|---------|-----------|
+| `*` | Edited here, not yet published | `akm skills publish <id>` |
+| `v` | The registry is ahead | `akm skills sync` |
+| `!` | Both sides moved (diverged) | `akm skills diff <id>`, then publish or revert |
+
+```bash
+# Inspect a diverged spec
+akm skills diff my-skill
+
+# Keep your version
+akm skills publish my-skill
+
+# Discard your edits (locally, or take the registry's copy)
+akm skills revert my-skill
+akm skills revert my-skill --remote
+```
+
+## Publishing
+
+Publishing writes to *your* registry on your own authority. One intent is one
+commit:
+
+```bash
+# Publish a single spec
+akm skills publish my-skill
+
+# Publish everything pending, as one commit and one push
+akm skills publish
+
+# Preview either without touching the remote
+akm skills publish --dry-run
+```
+
+When run interactively, `akm skills promote` and `akm skills import` offer to
+publish the new skill right away. See [Skill Format](/docs/skill-format/) for
+authoring and [Shared Registries](/docs/shared-registries/) for pulling from,
+and contributing back to, other people's repos.
 
 ## Importing from GitHub
 
-You can import any skill directly from a GitHub repository URL:
+Import any skill directly from a GitHub repository URL:
 
 ```bash
 # Import from a directory URL
@@ -135,20 +184,9 @@ akm skills import https://github.com/user/repo/tree/main/skills/my-skill
 # Import with a custom ID
 akm skills import https://github.com/user/repo/tree/main/skills/my-skill --id custom-name
 
-# Overwrite without confirmation
-akm skills import https://github.com/user/repo/tree/main/skills/my-skill --force
+# Import every skill under a directory
+akm skills import https://github.com/user/repo/tree/main/skills --all
 ```
 
-Both `/tree/` (directory) and `/blob/` (file) GitHub URLs are supported. For private repos, set the `GITHUB_TOKEN` environment variable.
-
-## Promoting and Publishing
-
-Import a project-local skill into cold storage, then publish to your personal registry:
-
-```bash
-# Import local skill into cold storage
-akm skills promote ./my-skill
-
-# Publish from cold storage to personal registry
-akm skills publish my-skill
-```
+Both `/tree/` (directory) and `/blob/` (file) GitHub URLs are supported. For
+private repos, set the `GITHUB_TOKEN` environment variable.

@@ -38,7 +38,11 @@ Write tests first, then implement code to make them pass.
 
 The body of `SKILL.md`, after the frontmatter, is what the agent reads.
 
-Tags and the core flag are not frontmatter — they live in `library.json`, and are set when you promote or import a skill, or later with `akm skills edit <id>`.
+Tags and the core flag are not frontmatter — they live in a per-spec `akm.json`
+sidecar beside `SKILL.md`. They are set when you promote or import a skill, or
+later with `akm skills edit <id> --meta`. `library.json` is a derived,
+machine-local index built from these sidecars on every sync — never edit it by
+hand.
 
 ## Agent Format
 
@@ -71,14 +75,13 @@ Use `akm skills publish` to push a skill from cold storage to your personal regi
 akm skills publish my-skill
 ```
 
-This does the following:
+Because the library is the registry's working tree, publishing is a commit and a
+push. One intent is one commit — `akm skills publish <id>` sends a single spec,
+and `akm skills publish` with no id sends every pending spec at once. If the
+remote moved on since your last sync, AKM fast-forwards onto it first so the push
+is never rejected.
 
-1. Validates the spec exists in cold storage
-2. Copies it to the cached personal registry
-3. Regenerates `library.json` in the registry
-4. Commits and pushes to the personal registry remote
-
-Requires `skills.personal-registry` to be configured (run `akm setup --skills`).
+Requires `registry.url` to be configured (run `akm setup --skills`).
 
 | Flag | Description |
 |------|-------------|
@@ -99,5 +102,6 @@ akm skills publish my-skill
 
 ## Related
 
-- [Skills domain](/docs/skills/) -- Three-layer activation and skill management
+- [Skills domain](/docs/skills/) -- Two-layer activation, the registry model, and drift markers
+- [Shared Registries](/docs/shared-registries/) -- Import from, and contribute back to, other people's repos
 - [CLI Reference](/docs/cli-reference/) -- Full command reference for `akm skills`
