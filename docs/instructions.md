@@ -17,9 +17,6 @@ Because they live in the registry, global instructions gain the same drift,
 publish and propagation model as a skill — edit them on one machine, publish,
 and they follow you to the next.
 
-A pre-rc4 `~/.akm/global-instructions.md` is carried into the registry the first
-time the new file is needed; the old file is left where it is.
-
 ## Target Mapping
 
 Each tool gets the instructions under the directory and filename it expects:
