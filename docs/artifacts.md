@@ -49,7 +49,10 @@ akm config artifacts.auto-push false
 `akm artifacts` with no subcommand opens a two-pane explorer on a terminal: a
 lazily-expanding tree on the left, a live plain-text preview on the right.
 `Enter` on a file opens it in `$EDITOR` and returns; directories expand with
-`→`/`Enter` and collapse with `←`.
+`→`/`Enter` and collapse with `←`. Press `y` to copy the selected entry's
+absolute path to the clipboard — handy for pasting straight into an agent. The
+copy uses OSC 52, so it works over SSH; the path is also shown in the status
+line as a selectable fallback for terminals that drop the escape sequence.
 
 ```bash
 # Two-pane explorer
