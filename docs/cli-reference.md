@@ -30,7 +30,7 @@ akm <command> [subcommand] [options]
 
 | Command | Description |
 |---------|-------------|
-| `akm skills` | Full status overview (defaults to `status`) |
+| `akm skills` | Browse the library (defaults to `list`) |
 | `akm skills sync` | Fast-forward the registry, rebuild the library and core symlinks |
 | `akm skills add <id> [id...]` | Add spec(s) to the project manifest (refreshes the live session) |
 | `akm skills remove <id> [id...]` | Remove spec(s) from the project manifest |
@@ -41,8 +41,8 @@ akm <command> [subcommand] [options]
 | `akm skills list <registry>` | Browse a configured shared registry |
 | `akm skills search <query>` | Search the library by keyword (TUI) |
 | `akm skills search <query> --plain` | Search by keyword (plain text) |
-| `akm skills status` | Full status overview (TUI) |
-| `akm skills status --plain` | Full status overview (plain text) |
+| `akm skills status` | Full status overview, Manifest section first (TUI) |
+| `akm skills status --plain` | Full status overview, Manifest section first (plain text) |
 | `akm skills edit <id>` | Edit the spec's `SKILL.md` in `$EDITOR` |
 | `akm skills edit <id> --meta` | Edit the spec's `akm.json` metadata sidecar |
 | `akm skills rename <old> <new>` | Rename a spec's id (its slug / directory name) |

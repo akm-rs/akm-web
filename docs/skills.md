@@ -87,7 +87,7 @@ akm skills remove systematic-debugging
 ### Browsing and searching
 
 ```bash
-# Browse the library
+# Browse the library (also what bare `akm skills` opens)
 akm skills list
 
 # Filter by tag or type
@@ -98,13 +98,18 @@ akm skills list --type agent
 akm skills search debugging
 ```
 
+Bare `akm skills` opens the library list — the same view as `akm skills list`.
+
 ### Full status overview
 
 ```bash
 akm skills status
 ```
 
-The `list` and `status` TUIs share a set of action keys — `e` edits a spec, `a`
+The status view leads with the **Manifest** section — the specs the current
+project declares — since that is what matters most when standing in a project;
+Core and the rest of the library follow. The `list` and `status` TUIs share a
+set of action keys — `e` edits a spec, `a`
 adds it to the project manifest, `r` removes it, `R` renames, `D` deletes. On a
 spec that shows drift, `p` queues it to publish and `u` discards your local
 edits. Add `--plain` to either command for scriptable plain-text output.

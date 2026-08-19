@@ -6,6 +6,24 @@ description: Release history for akm, mirrored from the akm-rs CHANGELOG.
 This page mirrors the [akm-rs CHANGELOG](https://github.com/akm-rs/akm-rs/blob/main/CHANGELOG.md).
 The canonical, always-current source is [GitHub Releases](https://github.com/akm-rs/akm-rs/releases).
 
+## 1.0.0
+
+First stable release.
+
+- Artifacts explorer: press `y` to copy the selected entry's absolute path to
+  the clipboard, for pasting straight into an agent. Uses OSC 52 (no clipboard
+  crate, no `pbcopy`/`xclip`/`wl-copy` shell-out), so it keeps the
+  single-binary guarantee and works over SSH. The path is also shown in the
+  status line as a selectable fallback for terminals that drop OSC 52.
+- TUI theme: rebranded from blue accents to black-and-gold (`#eec35e`) — gold
+  marks the selection bar, edit cursor, skill type and the `[CORE]` badge, with
+  the semantic status colours kept as distinct signals.
+- `akm skills status` now shows the Manifest section first, above Core, in both
+  the TUI dashboard and `--plain` output — a project's declared specs are the
+  most relevant thing to see when standing in it.
+- Bare `akm skills` now opens the library list (like `akm skills list`) instead
+  of the status dashboard; the dashboard stays an explicit `akm skills status`.
+
 ## 1.0.0-rc6
 
 - Add `akm uninstall` — removes the binary, ~/.bashrc integration block,
