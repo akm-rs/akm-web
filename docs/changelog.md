@@ -6,6 +6,18 @@ description: Release history for akm, mirrored from the akm-rs CHANGELOG.
 This page mirrors the [akm-rs CHANGELOG](https://github.com/akm-rs/akm-rs/blob/main/CHANGELOG.md).
 The canonical, always-current source is [GitHub Releases](https://github.com/akm-rs/akm-rs/releases).
 
+## 1.1.1
+
+- Mistral Vibe: global instructions now go to `~/.vibe/AGENTS.md`, which Vibe
+  reads as user-level instructions. The previous target,
+  `~/.vibe/prompts/cli.md`, was ignored by older Vibe and, since Vibe 2.9.0,
+  replaced Vibe's entire built-in system prompt with your instructions.
+  `akm instructions sync` removes that file when it is a byte-identical copy of
+  the global instructions; a hand-written `cli.md` is left alone.
+- Mistral Vibe: agent specs are no longer mounted into `~/.vibe/agents/`. Vibe
+  agents are `<name>.toml` configs, so the `.md` symlinks were inert clutter.
+  `tools.json` entries gain an `agents` flag (default `true`) for this.
+
 ## 1.1.0
 
 - Add Posit Assistant as a sixth harness (`~/.posit/assistant`). Its skill

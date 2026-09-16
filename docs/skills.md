@@ -59,8 +59,9 @@ lifecycle:
 3. **Hand** the staging and artifact dirs to the tool in the form it understands — `--add-dir` for Claude Code and Copilot, `OPENCODE_CONFIG_DIR` for OpenCode, `--skill` for Pi
 4. **Cleanup** on exit: destroy the staging dir, commit+push artifacts (if auto-push enabled)
 
-Mistral Vibe has no way to take a directory at launch, so it gets no wrapper —
-only core skills and global instructions, in `~/.vibe/`.
+Mistral Vibe is not wrapped yet, so it gets only core skills and global
+instructions, in `~/.vibe/`. Vibe agents are TOML configs rather than markdown
+personas, so agent specs are not mounted for it.
 
 Posit Assistant runs inside the Positron IDE, so there is no command to wrap
 and no session to hook into. Its skill discovery skips symlinked directories,
