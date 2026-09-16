@@ -6,6 +6,29 @@ description: Release history for akm, mirrored from the akm-rs CHANGELOG.
 This page mirrors the [akm-rs CHANGELOG](https://github.com/akm-rs/akm-rs/blob/main/CHANGELOG.md).
 The canonical, always-current source is [GitHub Releases](https://github.com/akm-rs/akm-rs/releases).
 
+## 1.1.0
+
+- Add Posit Assistant as a sixth harness (`~/.posit/assistant`). Its skill
+  discovery skips symlinked directories, so core skills mount as real
+  directories whose entries are symlinks into the library (tree mount)
+  instead of the symlinked-dir mount every other harness uses.
+- `akm instructions sync` writes `~/.posit/assistant/akm-instructions.md` and
+  adds a single `@akm-instructions.md` include line to
+  `~/.posit/assistant/AGENTS.md`, appended once and never overwriting the
+  file, since Posit's own `/savememory` command appends to it too.
+- Project skills for Posit are materialized into a gitignored sidecar at
+  `<project>/.posit/assistant/skills/`, refreshed by `akm skills add`/`remove`,
+  the interactive TUI, `skills delete`/`rename`, and at session setup.
+- `tools.json` entries gain `mount` (`symlink` default, or `tree`) and
+  optional `project_dir` fields; existing files without them still parse.
+
+## 1.0.1
+
+- `akm skills import` accepts repository-root GitHub URLs —
+  `https://github.com/owner/repo/tree/<ref>` with no path, for repos that are
+  themselves a single skill (SKILL.md at the root). The default skill ID is
+  the repo name; `blob/<ref>/SKILL.md` at the root works too.
+
 ## 1.0.0
 
 First stable release.

@@ -28,6 +28,11 @@ Each tool gets the instructions under the directory and filename it expects:
 | OpenCode | `~/.agents/` | `AGENTS.md` |
 | Pi | `~/.pi/agent/` | `AGENTS.md` |
 | Mistral Vibe | `~/.vibe/prompts/` | `cli.md` |
+| Posit Assistant | `~/.posit/assistant/` | `akm-instructions.md`, included from `AGENTS.md` |
+
+For Posit Assistant the instructions go to a separate file, and a single
+`@akm-instructions.md` line is appended to `~/.posit/assistant/AGENTS.md` once,
+without overwriting it. Posit's own `/savememory` command appends to that file too.
 
 ## Commands
 
