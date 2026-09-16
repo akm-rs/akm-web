@@ -21,7 +21,8 @@ an open standard for portable AI coding skills.
 ```
 Layer 1 — Core (global, always available)
   Specs marked core in their akm.json sidecar
-  Symlinked into ~/.claude/, ~/.copilot/, ~/.agents/, ~/.pi/agent/, ~/.vibe/
+  Symlinked into ~/.claude/, ~/.copilot/, ~/.agents/, ~/.pi/agent/, ~/.vibe/,
+  ~/.posit/assistant/
 
 Layer 2 — Project (declared in a manifest, mounted per session)
   .agents/akm.json lists skill/agent IDs
@@ -33,7 +34,8 @@ Layer 2 — Project (declared in a manifest, mounted per session)
 
 Core skills are globally available across all projects. Specs marked `core` in
 their `akm.json` sidecar are symlinked directly into tool directories
-(`~/.claude/`, `~/.copilot/`, `~/.agents/`, `~/.pi/agent/`, `~/.vibe/`). The
+(`~/.claude/`, `~/.copilot/`, `~/.agents/`, `~/.pi/agent/`, `~/.vibe/`,
+`~/.posit/assistant/`). The
 `core` default lives in the sidecar and propagates to your other machines;
 a per-machine override stays in `local.json` and does not.
 
@@ -59,6 +61,16 @@ lifecycle:
 
 Mistral Vibe has no way to take a directory at launch, so it gets no wrapper —
 only core skills and global instructions, in `~/.vibe/`.
+
+Posit Assistant runs inside the Positron IDE, so there is no command to wrap
+and no session to hook into. Its skill discovery skips symlinked directories,
+so core skills are mounted as real directories under
+`~/.posit/assistant/skills/<id>/` whose entries are symlinks into the library.
+Project skills are materialized into a gitignored sidecar at
+`<project>/.posit/assistant/skills/`, refreshed by `akm skills add`/`remove`,
+the interactive TUI, and at session setup. Posit scans skills when a
+conversation starts, so reload the Positron window (or start a new
+conversation) after syncing to see new skills.
 
 ## Project Manifests
 
