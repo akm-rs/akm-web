@@ -27,7 +27,7 @@ Each tool gets the instructions under the directory and filename it expects:
 | GitHub Copilot | `~/.copilot/` | `copilot-instructions.md` |
 | OpenCode | `~/.agents/` | `AGENTS.md` |
 | Pi | `~/.pi/agent/` | `AGENTS.md` |
-| Mistral Vibe | `~/.vibe/prompts/` | `cli.md` |
+| Mistral Vibe | `~/.vibe/` | `AGENTS.md` |
 | Posit Assistant | `~/.posit/assistant/` | `akm-instructions.md`, included from `AGENTS.md` |
 
 For Posit Assistant the instructions go to a separate file, and a single
