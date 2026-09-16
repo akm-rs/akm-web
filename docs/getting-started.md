@@ -84,14 +84,14 @@ akm skills list
 
 ## Shell Wrappers
 
-`akm setup` wires `akm-init.sh` into your `.bashrc`, which provides wrapper functions for `claude`, `copilot`, `opencode` and `pi`. These wrappers automatically:
+`akm setup` wires `akm-init.sh` into your `.bashrc`, which provides wrapper functions for `claude`, `copilot`, `opencode`, `pi` and `vibe`. These wrappers automatically:
 
 1. Pull latest artifacts (if enabled)
 2. Create a per-session skills staging directory with manifest specs loaded
 3. Hand the staging and artifact dirs to the tool in the form it understands (`--add-dir`, `OPENCODE_CONFIG_DIR`, or `--skill`)
 4. On exit: destroy staging dir, commit+push artifacts (if auto-push enabled)
 
-You just type `claude`, `copilot`, `opencode` or `pi` as usual.
+You just type `claude`, `copilot`, `opencode`, `pi` or `vibe` as usual.
 
 ## Next Steps
 
